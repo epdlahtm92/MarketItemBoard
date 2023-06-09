@@ -9,7 +9,6 @@ public class MarketItem {
 	private String stock_date; // 전역변수 선언
 	private String info; // 전역변수 선언
 	private String pic_addr; // 전역변수 선언
-	private int produuct_code;
 	
 	//게터 세터 설정
 	public int getId() {
@@ -54,13 +53,7 @@ public class MarketItem {
 	public void setPic_addr(String pic_addr) {
 		this.pic_addr = pic_addr;
 	}
-	public int getProduuct_code() {
-		return produuct_code;
-	}
-	public void setProduuct_code(int produuct_code) {
-		this.produuct_code = produuct_code;
-	}
-	
+
 
 	
 	

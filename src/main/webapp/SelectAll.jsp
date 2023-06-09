@@ -41,7 +41,7 @@
 					int count = 0;
 					for(MarketItem marketItem: selectAllList){ // 반복하면서
 						if (count >= ((pagination.getC() - 1) * countPerPage) && count < (pagination.getC() * countPerPage)){
-							out.println("<td><a href='./SelectOne.jsp?id=" + marketItem.getId() + "'>" + marketItem.getProduuct_code() + "</a></td>"); //상품 아이디
+							out.println("<td><a href='./SelectOne.jsp?id=" + marketItem.getId() + "'>" + marketItem.getId() + "</a></td>"); //상품 아이디
 							out.println("<td><a href='./SelectOne.jsp?id=" + marketItem.getId() + "'>" + marketItem.getName() + "</a></td>"); // 상품이름	
 							out.println("<td>" + marketItem.getCount() + "</td>"); // 개수 표 안에 출력
 							out.println("<td>" + marketItem.getStock_date() + "</td>"); // 재고 등록일자 표 안에 출력

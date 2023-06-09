@@ -26,19 +26,28 @@
 				pic_addr = request.getParameter("pic_addr");
 			}
 			
-			int product_code = 0;
+			int id = 0;
+			if (request.getParameter("id") != null) {
+				id = Integer.parseInt(request.getParameter("id"));
+			}
 			
 			MarketItemDao marketItemDao = new MarketItemDaoImpl();
-			String[] res = marketItemDao.insertNewOne(name, count, info, pic_addr, product_code);
+			String[] res = marketItemDao.insertNewOne(id, name, count, info, pic_addr);
 		%>
 		<title>새 글 쓰기</title>
 	</head>
 	<body>
 		<%=res[0] %>
 		<br>
+		<% if (res[1].equals("-1")) { %>
+			<button onclick="location.href='./InputNewFormWithFile.jsp'">다른 상품 등록</button> <!-- 돌아가기버튼 -->
+			<button onclick="location.href='./InputNewFormWithFile.jsp'">재입력</button> <!-- 돌아가기버튼 -->
+			<button onclick="location.href='./SelectAll.jsp'">전체 상품 보기</button> <!-- 글 목록 보기 버튼 -->
+		<% } else { %>
 		<button onclick="location.href='./InputNewFormWithFile.jsp'">다른 상품 등록</button> <!-- 돌아가기버튼 -->
-		<button onclick="location.href='./InputModForm.jsp'">상품 재등록</button> <!-- 돌아가기버튼 -->
-		<button onclick="location.href='./SelectOne.jsp?id=<%=res[1] %>'">글 보기</button> <!-- 돌아가기버튼 -->
-		<button onclick="location.href='./SelectAll.jsp'">글 목록</button> <!-- 글 목록 보기 버튼 -->
+		<button onclick="location.href='./InputNewFormWithFile.jsp'">재입력</button> <!-- 돌아가기버튼 -->
+		<button onclick="location.href='./SelectOne.jsp?id=<%=res[1] %>'">등록 상품 보기</button> <!-- 돌아가기버튼 -->
+		<button onclick="location.href='./SelectAll.jsp'">전체 상품 보기</button> <!-- 글 목록 보기 버튼 -->
+		<%} %>
 	</body>
 </html>

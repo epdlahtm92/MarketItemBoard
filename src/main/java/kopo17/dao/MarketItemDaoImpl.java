@@ -22,27 +22,25 @@ public class MarketItemDaoImpl implements MarketItemDao {
 	private String todayDate = sdf.format(now); // 현재 날짜 포매팅
 
 	@Override
-	public String[] insertNewOne(String name, int count, String info, String pic_addr, int product_code) {
+	public String[] insertNewOne(int id, String name, int count, String info, String pic_addr) {
 		// TODO Auto-generated method stub
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); // 드라이버
 			Connection conn = DriverManager.getConnection(sqlUrl,sqlUser,sqlPassWd); // 커넥션
 			Statement stmt = conn.createStatement(); //스테이트먼트
 			
-			
-			ResultSet rset = stmt.executeQuery("select max(id)+1 from market_item;"); // 일렬번호 구하는 쿼리문 실행
-			rset.next(); // 리절트셋 
-			String idS = rset.getString(1); // 일렬번호 구하기
-			
-			int id = 1;
-			if (idS != null) {
-				id = Integer.parseInt(idS);
+			ResultSet rset = stmt.executeQuery("select id from market_item;");
+			while(rset.next()) {
+				if (id == rset.getInt(1)) {
+					String[] idDupl = {"상품 코드 중복", "-1"};
+					rset.close();
+					return idDupl;
+				} 
 			}
 			
-			stmt.execute("insert into market_item values(" + id + ",'" + name + "', " + count + ", '" +  todayDate + "', '" + todayDate + "', '" + info + "', '" + pic_addr + "', " +  product_code + ");"); // 일렬번호 및 인자 넣어서 새 글 작성 쿼리 실행
+			stmt.execute("insert into market_item values(" + id + ",'" + name + "', " + count + ", date(now()), date(now()), '" + info + "', '" + pic_addr + "');"); // 일렬번호 및 인자 넣어서 새 글 작성 쿼리 실행
 			
 			stmt.close(); // 스테이트먼트 종료
-			rset.close(); // 리절트셋 종료
 			conn.close(); // 커넥션 종료
 			
 			String[] res = {"상품 추가 완료", Integer.toString(id)};
@@ -153,16 +151,15 @@ public class MarketItemDaoImpl implements MarketItemDao {
 	}
 
 	@Override
-	public String updateOne(int id, String name, int count, String info, String pic_addr, int product_code) {
+	public String updateOne(int id, int count) {
 		// TODO Auto-generated method stub
 		
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); // 드라이버
 			Connection conn = DriverManager.getConnection(sqlUrl,sqlUser,sqlPassWd); // 커넥션
-			Statement stmt = conn.createStatement(); //스테이트먼트
+			Statement stmt = conn.createStatement(); //스테이트먼트			
 			
-			
-			stmt.execute("update market_item set name = '" + name + "', count = " + count + ", stock_date = '" + todayDate + "', info = '" + info  + "', pic_addr = '" + pic_addr + "', product_code = " + product_code + "  where id = " + id + ";"); // 레코드 수정하는 쿼리문 실행
+			stmt.execute("update market_item set count = " + count + ", stock_date = date(now())  where id = " + id + ";"); // 레코드 수정하는 쿼리문 실행
 			
 			stmt.close(); // 스테이트먼트 종료
 			conn.close(); // 커넥션 종료

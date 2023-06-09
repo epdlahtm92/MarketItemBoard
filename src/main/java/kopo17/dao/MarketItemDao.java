@@ -7,7 +7,7 @@ import kopo17.domain.*;
 public interface MarketItemDao {
 
 	// create
-		public String[] insertNewOne(String name, int count, String info, String pic_addr, int product_code);
+		public String[] insertNewOne(int id, String name, int count, String info, String pic_addr);
 		
 	// read
 		public List<MarketItem> selectAll();		
@@ -16,7 +16,7 @@ public interface MarketItemDao {
 		public String getTodayDate();
 		
 	// update
-		public String updateOne(int id, String name, int count, String info, String pic_addr, int product_code);
+		public String updateOne(int id, int count);
 	
 	// delete
 		public String deleteOne(int id);

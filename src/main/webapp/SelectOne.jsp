@@ -21,7 +21,7 @@
 	<body>
 		<table>
 			<tbody>
-				<tr><td class="leftIndex">번호</td><td><%=selectOne.getId() %></td></tr> <!-- 호출한 메서드 값 출력 -->
+				<tr><td class="leftIndex">상품 코드</td><td><%=selectOne.getId() %></td></tr> <!-- 호출한 메서드 값 출력 -->
 				<tr><td class="leftIndex">제목</td><td><%=selectOne.getName() %></td></tr> <!-- 호출한 메서드 값 출력 -->
 				<tr><td class="leftIndex">재고</td><td><%=selectOne.getCount() %></td></tr> <!-- 호출한 메서드 값 출력 -->
 				<tr><td class="leftIndex">상품 등록 일자</td><td><%=selectOne.getRecord_date() %></td></tr> <!-- 호출한 메서드 값 출력 -->
