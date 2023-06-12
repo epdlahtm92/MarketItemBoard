@@ -26,8 +26,8 @@
 				<tr><td class="leftIndex">재고</td><td><%=selectOne.getCount() %></td></tr> <!-- 호출한 메서드 값 출력 -->
 				<tr><td class="leftIndex">상품 등록 일자</td><td><%=selectOne.getRecord_date() %></td></tr> <!-- 호출한 메서드 값 출력 -->
 				<tr><td class="leftIndex">재고 갱신 일자</td><td><%=selectOne.getStock_date() %></td></tr> <!-- 호출한 메서드 값 출력 -->
-				<tr><td class="leftIndex">상품 설명</td><td><%=selectOne.getInfo() %></td></tr> <!-- 호출한 메서드 값 출력 -->
-				<tr><td class="leftIndex">상품사진</td><td><img src=<%=selectOne.getPic_addr() %> width=300px; height=300px;></td>
+				<tr><td class="leftIndex">상품 설명</td><td><textarea style="border:0px; width:300px; height:300px;"><%=selectOne.getInfo() %></textarea></td></tr> <!-- 호출한 메서드 값 출력 -->
+				<tr><td class="leftIndex">상품사진</td><td><img src=<%=selectOne.getPic_addr() %> width=300px; height=300px; alt=""></td>
 			</tbody>
 			<tfoot>
 				<tr>
