@@ -2,7 +2,7 @@ package kopo17.domain;
 
 public class MarketItem {
 	
-	private int id; // 전역변수 선언
+	private long id; // 전역변수 선언
 	private String name; // 전역변수 선언
 	private int count;
 	private String record_date; // 전역변수 선언
@@ -11,10 +11,10 @@ public class MarketItem {
 	private String pic_addr; // 전역변수 선언
 	
 	//게터 세터 설정
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {

@@ -5,9 +5,9 @@
 <html>
 	<head>
 		<%
-			int id = 0; // 아이디 변수 초기화
+			long id = 0; // 아이디 변수 초기화
 			if (request.getParameter("id") != null){ // 아이디 파라미터가 비어있지 않다면
-				id = Integer.parseInt(request.getParameter("id")); //대입
+				id = Long.parseLong(request.getParameter("id")); //대입
 			}
 			
 			MarketItemDao marketItemDao = new MarketItemDaoImpl(); // 클래스 객체 선언

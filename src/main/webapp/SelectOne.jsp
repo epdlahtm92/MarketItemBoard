@@ -8,9 +8,9 @@
 	<head>
 		<style>@import "./Style.css";</style><!-- css 파일 임포트 -->
 		<%
-			int id = 0; // 아이디 변수 초기화
+			long id = 0; // 아이디 변수 초기화
 			if (request.getParameter("id") != null) { // 파라미터 받아와서 변수에 대입
-				id = Integer.parseInt(request.getParameter("id"));
+				id = Long.parseLong(request.getParameter("id"));
 			}
 			
 			MarketItemDao marketItemDao = new MarketItemDaoImpl(); // 클래스 객체 선언
@@ -21,13 +21,19 @@
 	<body>
 		<table>
 			<tbody>
-				<tr><td class="leftIndex">상품 코드</td><td><%=selectOne.getId() %></td></tr> <!-- 호출한 메서드 값 출력 -->
-				<tr><td class="leftIndex">제목</td><td><%=selectOne.getName() %></td></tr> <!-- 호출한 메서드 값 출력 -->
+				<tr><td class="leftIndex">상품 코드</td><td style="width:400px"><%=selectOne.getId() %></td></tr> <!-- 호출한 메서드 값 출력 -->
+				<tr><td class="leftIndex">상품명</td><td style="width:400px; word-break:break-all"><%=selectOne.getName() %></td></tr> <!-- 호출한 메서드 값 출력 -->
 				<tr><td class="leftIndex">재고</td><td><%=selectOne.getCount() %></td></tr> <!-- 호출한 메서드 값 출력 -->
 				<tr><td class="leftIndex">상품 등록 일자</td><td><%=selectOne.getRecord_date() %></td></tr> <!-- 호출한 메서드 값 출력 -->
-				<tr><td class="leftIndex">재고 갱신 일자</td><td><%=selectOne.getStock_date() %></td></tr> <!-- 호출한 메서드 값 출력 -->
-				<tr><td class="leftIndex">상품 설명</td><td><textarea style="border:0px; width:300px; height:300px;"><%=selectOne.getInfo() %></textarea></td></tr> <!-- 호출한 메서드 값 출력 -->
-				<tr><td class="leftIndex">상품사진</td><td><img src=<%=selectOne.getPic_addr() %> width=300px; height=300px; alt=""></td>
+				<tr><td class="leftIndex">재고 등록 일자</td><td><%=selectOne.getStock_date() %></td></tr> <!-- 호출한 메서드 값 출력 -->
+				<tr><td class="leftIndex">상품 설명</td><td><textarea style="border:0px; width:90%; height:300px; text-align:center;" readonly><%=selectOne.getInfo() %></textarea></td></tr> <!-- 호출한 메서드 값 출력 -->
+				<%
+					if (selectOne.getPic_addr().equals("null")){
+						out.println("<tr><td class='leftIndex'>상품사진</td><td>등록된 사진이 없습니다.</td></tr>");
+					} else {
+				%>
+				<tr><td class="leftIndex">상품 사진</td><td><img src="<%="/MarketItem/upload/" + selectOne.getPic_addr() %>" width=300px; height=300px; onError="this.style.visibility='hidden'"></td>
+				<%} %>
 			</tbody>
 			<tfoot>
 				<tr>

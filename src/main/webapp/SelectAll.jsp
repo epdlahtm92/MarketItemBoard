@@ -40,9 +40,15 @@
 				<%
 					int count = 0;
 					for(MarketItem marketItem: selectAllList){ // 반복하면서
+						
+						String cutTitle = marketItem.getName();
+						if(cutTitle.length() > 20){
+							cutTitle = marketItem.getName().substring(0, 20) + "...";
+						} 
+						
 						if (count >= ((pagination.getC() - 1) * countPerPage) && count < (pagination.getC() * countPerPage)){
-							out.println("<td><a href='./SelectOne.jsp?id=" + marketItem.getId() + "'>" + marketItem.getId() + "</a></td>"); //상품 아이디
-							out.println("<td><a href='./SelectOne.jsp?id=" + marketItem.getId() + "'>" + marketItem.getName() + "</a></td>"); // 상품이름	
+							out.println("<td width=150 style='word-break:break-all;'><a href='./SelectOne.jsp?id=" + marketItem.getId() + "'>" + marketItem.getId() + "</a></td>"); //상품 아이디
+							out.println("<td width=300 style='word-break:break-all;'><a href='./SelectOne.jsp?id=" + marketItem.getId() + "'>" + cutTitle + "</a></td>"); // 상품이름	
 							out.println("<td>" + marketItem.getCount() + "</td>"); // 개수 표 안에 출력
 							out.println("<td>" + marketItem.getStock_date() + "</td>"); // 재고 등록일자 표 안에 출력
 							out.println("<td>" + marketItem.getRecord_date() + "</td></tr>"); // 작성일자 표 안에 출력
@@ -54,7 +60,7 @@
 				%>
 			</tbody>
 		</table>
-		<div style="text-align:center;">
+		<div>
 			<%
 				if(pagination.getPp() == -1 || pagination.getP() == -1){ // 앞으로 가는 버튼 안나오는 조건
 				} else {

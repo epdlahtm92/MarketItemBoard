@@ -22,7 +22,7 @@ public class MarketItemDaoImpl implements MarketItemDao {
 	private String todayDate = sdf.format(now); // 현재 날짜 포매팅
 
 	@Override
-	public String[] insertNewOne(int id, String name, int count, String info, String pic_addr) {
+	public String[] insertNewOne(long id, String name, int count, String info, String pic_addr) {
 		// TODO Auto-generated method stub
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver"); // 드라이버
@@ -31,19 +31,19 @@ public class MarketItemDaoImpl implements MarketItemDao {
 			
 			ResultSet rset = stmt.executeQuery("select id from market_item;");
 			while(rset.next()) {
-				if (id == rset.getInt(1)) {
+				if (id == rset.getLong(1)) {
 					String[] idDupl = {"상품 코드 중복", "-1"};
 					rset.close();
 					return idDupl;
 				} 
 			}
 			
-			stmt.execute("insert into market_item values(" + id + ",'" + name + "', " + count + ", date(now()), date(now()), '" + info + "', '" + pic_addr + "');"); // 일렬번호 및 인자 넣어서 새 글 작성 쿼리 실행
+			stmt.execute("insert into market_item (id, name, count, record_date, stock_date, info, pic_addr) values(" + id + ",'" + name + "', " + count + ", date(now()), date(now()), '" + info + "', '" + pic_addr + "');"); // 일렬번호 및 인자 넣어서 새 글 작성 쿼리 실행
 			
 			stmt.close(); // 스테이트먼트 종료
 			conn.close(); // 커넥션 종료
 			
-			String[] res = {"상품 추가 완료", Integer.toString(id)};
+			String[] res = {"상품 추가 완료", Long.toString(id)};
 			return res; //과정 완료 후 리턴 할 문구
 			
 		} catch (Exception e) { // 예외 처리
@@ -65,10 +65,10 @@ public class MarketItemDaoImpl implements MarketItemDao {
 			Connection conn = DriverManager.getConnection(sqlUrl,sqlUser,sqlPassWd); // 커넥션
 			Statement stmt = conn.createStatement(); //스테이트먼트
 			
-			ResultSet rset = stmt.executeQuery("select * from market_item;"); // 전체 조회하는 쿼리문 실행
+			ResultSet rset = stmt.executeQuery("select * from market_item order by rec_order desc;"); // 전체 조회하는 쿼리문 실행
 			while (rset.next()) { // 리절트셋 
 				MarketItem marketItem = new MarketItem(); // 도메인 클래스 객체 선언
-				marketItem.setId(rset.getInt(1)); // 일렬번호 구해서 세터로 넣기
+				marketItem.setId(rset.getLong(1)); // 일렬번호 구해서 세터로 넣기
 				marketItem.setName(rset.getString(2)); // 타이틀 구해서 세터로 넣기
 				marketItem.setCount(rset.getInt(3)); // 개수 구해서 세터로 넣기
 				marketItem.setRecord_date(rset.getString(4)); // 날짜 구해서 세터로 넣기
@@ -92,7 +92,7 @@ public class MarketItemDaoImpl implements MarketItemDao {
 	}
 
 	@Override
-	public MarketItem selectOne(int id) {
+	public MarketItem selectOne(long id) {
 		// TODO Auto-generated method stub
 		
 		MarketItem marketItem = new MarketItem(); // 도메인 클래스 객체 선언
@@ -104,7 +104,7 @@ public class MarketItemDaoImpl implements MarketItemDao {
 			
 			ResultSet rset = stmt.executeQuery("select * from market_item where id = " + id + ";"); // 일렬번호 구하는 쿼리문 실행
 			rset.next(); // 리절트셋 
-				marketItem.setId(rset.getInt(1)); // 일렬번호 구해서 세터로 넣기
+				marketItem.setId(rset.getLong(1)); // 일렬번호 구해서 세터로 넣기
 				marketItem.setName(rset.getString(2)); // 타이틀 구해서 세터로 넣기
 				marketItem.setCount(rset.getInt(3)); // 개수 구해서 세터로 넣기
 				marketItem.setRecord_date(rset.getString(4)); // 날짜 구해서 세터로 넣기
@@ -151,7 +151,7 @@ public class MarketItemDaoImpl implements MarketItemDao {
 	}
 
 	@Override
-	public String updateOne(int id, int count) {
+	public String updateOne(long id, int count) {
 		// TODO Auto-generated method stub
 		
 		try {
@@ -173,7 +173,7 @@ public class MarketItemDaoImpl implements MarketItemDao {
 	}
 
 	@Override
-	public String deleteOne(int id) {
+	public String deleteOne(long id) {
 		// TODO Auto-generated method stub
 		
 		try {

@@ -7,9 +7,9 @@
 	<head>
 		<%
 			
-			int id = 0;
-			if (request.getParameter("id") != null) {
-				id = Integer.parseInt(request.getParameter("id"));
+			long id = 0; // 변수 초기화
+			if (request.getParameter("id") != null) { // 편수 파라미터로 받아오기
+				id = Long.parseLong(request.getParameter("id"));
 			}
 			
 			int count = 0; // 숫자 세기 변수
